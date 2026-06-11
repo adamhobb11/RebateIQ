@@ -38,6 +38,12 @@ python scripts/seed_corpus.py --recreate
 python scripts/demo_semantic_vs_keyword.py
 ```
 
+Run the Proposal Generator — site visit in, branded PDF out:
+```bash
+python scripts/demo_proposal.py          # deterministic end-to-end storyline (no LLM)
+python scripts/check_proposal_agent.py   # live agent: Gemini does the eligibility reasoning
+```
+
 Run the Program Monitor agent interactively (requires Docker for the Elastic MCP server):
 ```bash
 adk web rebateiq/agents          # opens a local chat UI; pick "program_monitor"

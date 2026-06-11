@@ -12,8 +12,18 @@ dev and, later, the Cloud Run container).
 
 ## Model selection
 - `gemini-3.5-flash` — default for monitoring, classification, drafting
-- `gemini-3.1-pro` — reserved for the Proposal Generator's multi-program
-  stacking logic where reasoning depth matters
+- `gemini-3.1-pro-preview` — the Proposal Generator's multi-program stacking
+  logic where reasoning depth matters. (The brief's `gemini-3.1-pro` string
+  does not exist on Vertex; validated against the live model list.)
+
+## Two tool patterns, deliberately
+- **Program Monitor** reaches Elasticsearch through the official Elastic MCP
+  server — generic, exploratory tools (list indices, mappings, search).
+- **Proposal Generator** uses typed Python function tools that wrap the shared
+  hybrid query and the deterministic calc engine. Structured retrieval and
+  money math should not be improvised by the model query-by-query; the LLM's
+  job there is eligibility and stacking judgment, and every dollar figure
+  comes from code.
 
 ## To refactor later
 The Elastic MCP toolset is inlined in `program_monitor/agent.py` for Phase 1.
