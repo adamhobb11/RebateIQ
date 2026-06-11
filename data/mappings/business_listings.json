@@ -1,0 +1,23 @@
+{
+  "mappings": {
+    "properties": {
+      "listing_id": { "type": "keyword" },
+      "business_name": { "type": "text", "copy_to": ["semantic_combined"] },
+      "description": { "type": "text", "copy_to": ["semantic_combined"] },
+      "building_type": { "type": "text", "copy_to": ["semantic_combined"] },
+      "heating_system": { "type": "text", "copy_to": ["semantic_combined"] },
+      "contact_title": { "type": "text", "copy_to": ["semantic_combined"] },
+      "semantic_combined": { "type": "semantic_text", "inference_id": ".elser-2-elastic" },
+
+      "contact_name": { "type": "keyword" },
+      "email": { "type": "keyword" },
+      "address": { "type": "text" },
+      "city": { "type": "keyword" },
+      "region": { "type": "keyword" },
+
+      "units": { "type": "integer" },
+      "system_age_years": { "type": "integer" },
+      "source": { "type": "keyword" }
+    }
+  }
+}

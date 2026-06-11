@@ -17,9 +17,12 @@ env/
 .adk/
 *.session
 
-# Data dumps (keep folder, ignore large files)
+# Data dumps (keep folder + committed corpus, ignore large files)
 data/*
 !data/.gitkeep
+!data/README.md
+!data/mappings/
+!data/seed/
 
 # OS / editor
 .DS_Store

@@ -1,0 +1,32 @@
+{
+  "mappings": {
+    "properties": {
+      "program_id": { "type": "keyword" },
+      "program_name": { "type": "text", "copy_to": ["semantic_combined"] },
+      "description": { "type": "text", "copy_to": ["semantic_combined"] },
+      "eligible_equipment": { "type": "text", "copy_to": ["semantic_combined"] },
+      "semantic_combined": { "type": "semantic_text", "inference_id": ".elser-2-elastic" },
+
+      "classification": { "type": "keyword" },
+      "submission_channel": { "type": "keyword" },
+
+      "incentive_basis": { "type": "keyword" },
+      "incentive_rate": { "type": "float" },
+      "incentive_unit": { "type": "keyword" },
+      "incentive_pct_cap": { "type": "float" },
+      "incentive_max": { "type": "float" },
+      "cost_basis": { "type": "keyword" },
+
+      "pre_approval_required": { "type": "boolean" },
+      "auth_required": { "type": "boolean" },
+      "form_url": { "type": "keyword" },
+      "form_type": { "type": "keyword" },
+      "source": { "type": "keyword" },
+      "source_urls": { "type": "keyword" },
+
+      "region": { "type": "keyword" },
+      "deadline": { "type": "date" },
+      "funding_status": { "type": "keyword" }
+    }
+  }
+}
