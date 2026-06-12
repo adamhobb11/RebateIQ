@@ -1,0 +1,21 @@
+[
+  { "exemplar_id": "int-01", "intent": "interested", "text": "We're interested — please reach out to set something up." },
+  { "exemplar_id": "int-02", "intent": "interested", "text": "We'd like to learn more — what are the next steps?" },
+  { "exemplar_id": "int-03", "intent": "interested", "text": "Sounds promising. When could you come do an assessment?" },
+  { "exemplar_id": "int-04", "intent": "interested", "text": "Yes please, send over the details about the rebate — we have been meaning to deal with the boiler." },
+
+  { "exemplar_id": "que-01", "intent": "question", "text": "What would something like this cost us, roughly?" },
+  { "exemplar_id": "que-02", "intent": "question", "text": "Does this program apply to buildings our size?" },
+  { "exemplar_id": "que-03", "intent": "question", "text": "How long does an installation like this usually take, and is there disruption to tenants?" },
+  { "exemplar_id": "que-04", "intent": "question", "text": "Who qualifies for the incentive — is it only for certain equipment?" },
+
+  { "exemplar_id": "dec-01", "intent": "decline", "text": "Not interested, please remove us from your list." },
+  { "exemplar_id": "dec-02", "intent": "decline", "text": "We just replaced our heating system last year, so this isn't relevant." },
+  { "exemplar_id": "dec-03", "intent": "decline", "text": "No thanks, we're all set." },
+  { "exemplar_id": "dec-04", "intent": "decline", "text": "Please stop emailing us." },
+
+  { "exemplar_id": "ooo-01", "intent": "out_of_office", "text": "I am out of the office until July 5 with limited access to email." },
+  { "exemplar_id": "ooo-02", "intent": "out_of_office", "text": "Automatic reply: I am away from my desk and will respond on my return." },
+  { "exemplar_id": "ooo-03", "intent": "out_of_office", "text": "On vacation until Monday — for urgent matters contact the site office." },
+  { "exemplar_id": "ooo-04", "intent": "out_of_office", "text": "Auto-reply: currently travelling and will reply to your message next week." }
+]

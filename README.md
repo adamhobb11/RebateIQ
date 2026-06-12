@@ -50,6 +50,18 @@ python scripts/demo_prospects.py         # deterministic (no LLM)
 python scripts/check_prospect_agent.py   # live agent: Gemini writes the customer profile
 ```
 
+Run the Outreach agent — approved prospects in, CASL-validated campaign out:
+```bash
+python scripts/demo_outreach.py          # deterministic; queues the simulated send
+python scripts/check_outreach_agent.py   # live agent: drafts copy, holds for approval
+```
+
+Run Response & Scheduling — prospect reply in, booked .ics out:
+```bash
+python scripts/demo_scheduling.py        # semantic classification runs live
+python scripts/check_scheduling_agent.py # live agent, two turns: propose then book
+```
+
 Run the Proposal Generator — site visit in, branded PDF out:
 ```bash
 python scripts/demo_proposal.py          # deterministic end-to-end storyline (no LLM)

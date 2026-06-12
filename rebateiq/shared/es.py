@@ -10,6 +10,7 @@ load_dotenv(find_dotenv())
 
 PROGRAMS_INDEX = os.environ.get("ES_PROGRAMS_INDEX", "rebate_programs")
 LISTINGS_INDEX = os.environ.get("ES_LISTINGS_INDEX", "business_listings")
+INTENTS_INDEX = os.environ.get("ES_INTENTS_INDEX", "reply_intents")
 
 
 @lru_cache(maxsize=1)

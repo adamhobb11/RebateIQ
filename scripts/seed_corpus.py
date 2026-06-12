@@ -20,7 +20,12 @@ from elasticsearch import helpers
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from rebateiq.shared.es import LISTINGS_INDEX, PROGRAMS_INDEX, get_client  # noqa: E402
+from rebateiq.shared.es import (  # noqa: E402
+    INTENTS_INDEX,
+    LISTINGS_INDEX,
+    PROGRAMS_INDEX,
+    get_client,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -36,6 +41,12 @@ CORPORA = [
         "mapping": ROOT / "data/mappings/business_listings.json",
         "seed": ROOT / "data/seed/business_listings.json",
         "id_field": "listing_id",
+    },
+    {
+        "index": INTENTS_INDEX,
+        "mapping": ROOT / "data/mappings/reply_intents.json",
+        "seed": ROOT / "data/seed/reply_intents.json",
+        "id_field": "exemplar_id",
     },
 ]
 

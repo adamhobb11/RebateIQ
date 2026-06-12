@@ -1,0 +1,10 @@
+{
+  "mappings": {
+    "properties": {
+      "exemplar_id": { "type": "keyword" },
+      "intent": { "type": "keyword" },
+      "text": { "type": "text", "copy_to": ["semantic_combined"] },
+      "semantic_combined": { "type": "semantic_text", "inference_id": ".elser-2-elastic" }
+    }
+  }
+}
