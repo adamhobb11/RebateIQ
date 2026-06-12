@@ -16,6 +16,17 @@ dev and, later, the Cloud Run container).
   logic where reasoning depth matters. (The brief's `gemini-3.1-pro` string
   does not exist on Vertex; validated against the live model list.)
 
+## Monitoring is a scheduled scan, not a polling agent
+The Program Monitor's alert logic (rebateiq/agents/program_monitor/alerts.py)
+is a deterministic diff against the previous snapshot: new program ids,
+funding-status transitions, deadlines entering the warning window. In
+production a Cloud Scheduler job re-ingests DSIRE/NRCan/utility feeds and
+runs the scan after each ingest, pushing the digest to the contractor; the
+ADK agent is the conversational layer over the same index. The demo
+(scripts/demo_monitor.py) simulates one overnight feed update and restores
+the corpus afterwards. At DSIRE scale the scan pre-scopes candidates to the
+contractor's equipment profile via the shared hybrid query.
+
 ## Two tool patterns, deliberately
 - **Program Monitor** reaches Elasticsearch through the official Elastic MCP
   server — generic, exploratory tools (list indices, mappings, search).

@@ -38,6 +38,12 @@ python scripts/seed_corpus.py --recreate
 python scripts/demo_semantic_vs_keyword.py
 ```
 
+Run the Program Monitor's alert scan — a simulated overnight feed update
+fires new-program / funding-change / deadline alerts, then restores the corpus:
+```bash
+python scripts/demo_monitor.py
+```
+
 Run the Proposal Generator — site visit in, branded PDF out:
 ```bash
 python scripts/demo_proposal.py          # deterministic end-to-end storyline (no LLM)
