@@ -44,6 +44,12 @@ fires new-program / funding-change / deadline alerts, then restores the corpus:
 python scripts/demo_monitor.py
 ```
 
+Run the Prospect Identifier — incentive program in, approval-ready list out:
+```bash
+python scripts/demo_prospects.py         # deterministic (no LLM)
+python scripts/check_prospect_agent.py   # live agent: Gemini writes the customer profile
+```
+
 Run the Proposal Generator — site visit in, branded PDF out:
 ```bash
 python scripts/demo_proposal.py          # deterministic end-to-end storyline (no LLM)
