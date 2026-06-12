@@ -64,7 +64,9 @@ def render_approval_list(prospects: list[dict], program_name: str, region_label:
     )
 
 
-root_agent = Agent(
+def build_agent() -> Agent:
+    """Fresh agent instance (factory so the coordinator can own its own copy)."""
+    return Agent(
     model=MODEL,
     name="prospect_identifier",
     description="Builds an approval-ready prospect list for a detected incentive program.",
@@ -82,4 +84,7 @@ root_agent = Agent(
         "approves the list; say so. Keep the CASL footer intact."
     ),
     tools=[get_program, find_prospects, render_approval_list],
-)
+    )
+
+
+root_agent = build_agent()

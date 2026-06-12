@@ -68,13 +68,26 @@ python scripts/demo_proposal.py          # deterministic end-to-end storyline (n
 python scripts/check_proposal_agent.py   # live agent: Gemini does the eligibility reasoning
 ```
 
-Run the Program Monitor agent interactively (requires Docker for the Elastic MCP server):
+Run the whole team — the root coordinator hands off across all five agents:
 ```bash
-adk web rebateiq/agents          # opens a local chat UI; pick "program_monitor"
-# or headless:
-adk run rebateiq/agents/program_monitor
+python scripts/check_coordinator.py      # live routing smoke
+adk web rebateiq/agents                  # chat UI; pick "coordinator" (Docker needed
+                                         # for the Elastic MCP in program_monitor)
 ```
-Ask it: *"What indices exist?"* or *"Which Ontario programs apply to a condensing boiler retrofit?"*
+Ask it: *"What changed in Ontario programs?"*, *"Who should I pitch the Enbridge
+boiler incentive to?"*, or paste site-visit data and ask for the proposal.
+
+### Live calendar (optional)
+The booking agent defaults to a simulated calendar that writes real `.ics`
+files. To book on a real Google Calendar via MCP:
+1. Google Cloud console → enable the **Google Calendar API**; configure the
+   OAuth consent screen (External, add yourself as a test user).
+2. Credentials → **Create OAuth client ID → Desktop app** → download the JSON
+   to `credentials/gcal-oauth-client.json` (gitignored).
+3. Set in `.env`: `REBATEIQ_CALENDAR=mcp` and
+   `GOOGLE_OAUTH_CREDENTIALS=<absolute path to that JSON>`.
+4. `python scripts/check_calendar_mcp.py` — the first run opens the browser
+   for the one-time consent, then must list your real calendars.
 
 ## License
 MIT

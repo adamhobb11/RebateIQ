@@ -36,6 +36,30 @@ contractor's equipment profile via the shared hybrid query.
   job there is eligibility and stacking judgment, and every dollar figure
   comes from code.
 
+## Multi-agent shape
+A root coordinator (`rebateiq/agents/coordinator`) owns the five specialists
+as ADK sub-agents and routes by request; control transfers to one specialist,
+does the work with its own tools, and returns. Each specialist module exposes
+`build_agent()` so the coordinator composes fresh instances while every agent
+also remains runnable standalone in `adk web`. The coordinator is the single
+entry point the demo UI and the Cloud Run deployment talk to.
+
+## Calendar backend
+The booking agent's calendar is a swappable backend behind one env flag:
+- `REBATEIQ_CALENDAR=sim` (default): deterministic busy schedule, bookings
+  written as real .ics files — demo-safe, no external account.
+- `REBATEIQ_CALENDAR=mcp`: the live Google Calendar through the
+  `@cocal/google-calendar-mcp` server (stdio via npx). Needs a Desktop-app
+  OAuth client JSON (`GOOGLE_OAUTH_CREDENTIALS`) and a one-time browser
+  consent; verify with `scripts/check_calendar_mcp.py`.
+
+## Demo UI decision
+The demo records in `adk web`: the events pane shows coordinator handoffs
+and every tool call — the architecture is the show. The artifacts carry the
+visual story (branded proposal PDF, .ics invites, outbox emails, the alert
+digest). A custom web UI was considered and consciously skipped: it adds
+build time without adding evidence.
+
 ## To refactor later
 The Elastic MCP toolset is inlined in `program_monitor/agent.py` for Phase 1.
 When the second agent needs it, lift it into `rebateiq/tools/elastic_mcp.py`

@@ -90,7 +90,9 @@ def queue_approved_campaign(
     return {"queued": queue_campaign(drafts, outbox_dir), "blocked_by": {}}
 
 
-root_agent = Agent(
+def build_agent() -> Agent:
+    """Fresh agent instance (factory so the coordinator can own its own copy)."""
+    return Agent(
     model=MODEL,
     name="outreach",
     description="Drafts and queues the CASL-compliant incentive announcement campaign.",
@@ -108,4 +110,7 @@ root_agent = Agent(
         "contractor explicitly approves — never in the same turn you show the preview."
     ),
     tools=[get_program, make_campaign, queue_approved_campaign],
-)
+    )
+
+
+root_agent = build_agent()

@@ -22,39 +22,48 @@ load_dotenv(find_dotenv())
 
 MODEL = os.environ.get("REBATEIQ_MODEL", "gemini-3.5-flash")
 
-# Official Elastic MCP server, run as a Docker subprocess over stdio.
-# (The npm package is deprecated; the Docker image is the supported path.)
-elastic_mcp = McpToolset(
-    connection_params=StdioConnectionParams(
-        server_params=StdioServerParameters(
-            command="docker",
-            args=[
-                "run", "-i", "--rm",
-                "-e", "ES_URL",
-                "-e", "ES_API_KEY",
-                "docker.elastic.co/mcp/elasticsearch", "stdio",
-            ],
-            env={
-                "ES_URL": os.environ["ES_URL"],
-                "ES_API_KEY": os.environ["ES_API_KEY"],
-            },
+def build_agent() -> Agent:
+    """Fresh agent instance (factory so the coordinator can own its own copy)."""
+    # Official Elastic MCP server, run as a Docker subprocess over stdio.
+    # (The npm package is deprecated; the Docker image is the supported path.)
+    elastic_mcp = McpToolset(
+        connection_params=StdioConnectionParams(
+            server_params=StdioServerParameters(
+                command="docker",
+                args=[
+                    "run", "-i", "--rm",
+                    "-e", "ES_URL",
+                    "-e", "ES_API_KEY",
+                    "docker.elastic.co/mcp/elasticsearch", "stdio",
+                ],
+                env={
+                    "ES_URL": os.environ["ES_URL"],
+                    "ES_API_KEY": os.environ["ES_API_KEY"],
+                },
+            ),
+            timeout=60,
         ),
-        timeout=60,
-    ),
-    # Phase 1: read-only surface is all we need.
-    # tool_filter=["list_indices", "get_mappings", "search"],
-)
+        # Phase 1: read-only surface is all we need.
+        # tool_filter=["list_indices", "get_mappings", "search"],
+    )
 
-root_agent = Agent(
-    model=MODEL,
-    name="program_monitor",
-    description="Reads the RebateIQ incentive-program index in Elasticsearch.",
-    instruction=(
-        "You are the RebateIQ Program Monitor. You have Elasticsearch tools that "
-        "can list indices, inspect field mappings, and run search queries against "
-        "an index of HVAC government and utility incentive programs. When asked "
-        "about programs, ALWAYS use the tools to retrieve real data rather than "
-        "guessing. State which index and fields you used. Keep answers concise."
-    ),
-    tools=[elastic_mcp],
-)
+    return Agent(
+        model=MODEL,
+        name="program_monitor",
+        description=(
+            "Answers questions about incentive programs and what changed: queries "
+            "the live program index (Elasticsearch via MCP) for programs, "
+            "deadlines, funding status, and eligibility language."
+        ),
+        instruction=(
+            "You are the RebateIQ Program Monitor. You have Elasticsearch tools that "
+            "can list indices, inspect field mappings, and run search queries against "
+            "an index of HVAC government and utility incentive programs. When asked "
+            "about programs, ALWAYS use the tools to retrieve real data rather than "
+            "guessing. State which index and fields you used. Keep answers concise."
+        ),
+        tools=[elastic_mcp],
+    )
+
+
+root_agent = build_agent()

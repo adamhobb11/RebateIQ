@@ -146,7 +146,9 @@ def render_proposal_pdf_file(
     return render_proposal_pdf(visit, calc, ContractorProfile(**contractor), out_path)
 
 
-root_agent = Agent(
+def build_agent() -> Agent:
+    """Fresh agent instance (factory so the coordinator can own its own copy)."""
+    return Agent(
     model=MODEL,
     name="proposal_generator",
     description="Turns site-visit data into a branded, incentive-stacked PDF proposal.",
@@ -177,4 +179,7 @@ root_agent = Agent(
         parse_rep_reply_email,
         render_proposal_pdf_file,
     ],
-)
+    )
+
+
+root_agent = build_agent()
